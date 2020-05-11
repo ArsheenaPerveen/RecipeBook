@@ -82,7 +82,7 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
   },
   applyFilterBtn: {
-    display: 'block',
+    marginRight: '10px',
   },
   filedBtn: {
     marginTop: '8px',

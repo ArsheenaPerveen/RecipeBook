@@ -1,7 +1,7 @@
-const express = require("express");
-const connectDB = require("./config/db");
-const cors = require("cors");
-const Recipes = require("./model/Recipes");
+const express = require('express');
+const connectDB = require('./config/db');
+const cors = require('cors');
+const Recipes = require('./model/Recipes');
 
 const app = express();
 
@@ -11,17 +11,17 @@ app.use(express.json({ extended: true }));
 
 app.use(cors());
 
-app.get("/", async (req, res) => {
+app.get('/', async (req, res) => {
   try {
-    const recipes = await Recipes.find({}).populate("recipes");
+    const recipes = await Recipes.find({}).populate('recipes');
     res.json({ recipes });
   } catch (err) {
     console.error(err);
-    res.status(500).send("server error");
+    res.status(500).send('server error');
   }
 });
 
-app.post("/addRecipe", async (req, res) => {
+app.post('/addRecipe', async (req, res) => {
   const {
     userName,
     title,
@@ -50,11 +50,11 @@ app.post("/addRecipe", async (req, res) => {
       difficultyLevel,
     });
     await newRecipe.save();
-    res.send("Recipe added");
+    res.send(newRecipe);
   } catch (err) {
     console.error(err);
-    res.status(500).send("server error");
+    res.status(500).send('server error');
   }
 });
 
-app.listen(4000, () => console.log("Server running on 4000"));
+app.listen(4000, () => console.log('Server running on 4000'));

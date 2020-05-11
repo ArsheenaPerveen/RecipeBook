@@ -14,9 +14,10 @@ import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import useStyles from '../useStyles';
 
-const FilterRecipes = ({ list, filterData }) => {
+const FilterRecipes = ({ list, filterData, clearData }) => {
   const classes = useStyles();
   const initialTypeState = {
     dessert: false,
@@ -63,7 +64,7 @@ const FilterRecipes = ({ list, filterData }) => {
     setLevel('');
     setServings('');
     setTypes(initialTypeState);
-    filterData();
+    clearData();
   };
   return (
     <div>
@@ -76,86 +77,106 @@ const FilterRecipes = ({ list, filterData }) => {
           <Typography variant="subtitle1">Filter Recipes</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.expandPanel}>
-          <FormControl component="fieldset" className={classes.filterForm}>
-            <FormLabel component="legend">Type of Recipes</FormLabel>
-            <FormGroup row>
-              <FormControlLabel
-                control={<Checkbox checked={dessert} onChange={handleRecipeType} name="dessert" />}
-                label="Dessert"
-              />
-              <FormControlLabel
-                control={<Checkbox checked={snacks} onChange={handleRecipeType} name="snacks" />}
-                label="Snacks"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={appetiser} onChange={handleRecipeType} name="appetiser" />
-                }
-                label="Appetiser"
-              />
-              <FormControlLabel
-                control={<Checkbox checked={salad} onChange={handleRecipeType} name="salad" />}
-                label="Salad"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={maincourse} onChange={handleRecipeType} name="maincourse" />
-                }
-                label="Main Course"
-              />
-              <FormControlLabel
-                control={
-                  <Checkbox checked={beverages} onChange={handleRecipeType} name="beverages" />
-                }
-                label="Beverages"
-              />
-              <FormControlLabel
-                control={<Checkbox checked={others} onChange={handleRecipeType} name="others" />}
-                label="Others"
-              />
-            </FormGroup>
-          </FormControl>
-          <Divider />
-          <FormControl component="fieldset" className={classes.filterForm}>
-            <FormLabel component="legend">Difficulty level</FormLabel>
-            <RadioGroup
-              row
-              aria-label="difficulty level"
-              name="difficultyLevel"
-              value={level}
-              onChange={handleDifficultyLevel}
-            >
-              <FormControlLabel value="easy" control={<Radio />} label="Easy" />
-              <FormControlLabel value="moderate" control={<Radio />} label="Moderate" />
-              <FormControlLabel value="hard" control={<Radio />} label="Hard" />
-            </RadioGroup>
-          </FormControl>
-          <Divider />
-          <FormControl component="fieldset" className={classes.filterForm}>
-            <FormLabel component="legend">Servings</FormLabel>
-            <RadioGroup
-              row
-              aria-label="Servings"
-              name="servings"
-              value={servings}
-              onChange={handleServings}
-            >
-              <FormControlLabel value="From 2 to 4" control={<Radio />} label="From 2 to 4" />
-              <FormControlLabel value="From 5 to 8" control={<Radio />} label="From 5 to 8" />
-              <FormControlLabel value="more than 8" control={<Radio />} label="More than 8" />
-            </RadioGroup>
-          </FormControl>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={filteredRecipes}
-            className={classes.applyFilterBtn}
-          >
-            Apply
-          </Button>
-          <Button variant="contained" onClick={resetFilter} className={classes.applyFilterBtn}>
-            Reset
-          </Button>
+          <Grid container>
+            <Grid item xs={12}>
+              <FormControl component="fieldset" className={classes.filterForm}>
+                <FormLabel component="legend">Type of Recipes</FormLabel>
+                <FormGroup row>
+                  <FormControlLabel
+                    control={
+                      <Checkbox checked={dessert} onChange={handleRecipeType} name="dessert" />
+                    }
+                    label="Dessert"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox checked={snacks} onChange={handleRecipeType} name="snacks" />
+                    }
+                    label="Snacks"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox checked={appetiser} onChange={handleRecipeType} name="appetiser" />
+                    }
+                    label="Appetiser"
+                  />
+                  <FormControlLabel
+                    control={<Checkbox checked={salad} onChange={handleRecipeType} name="salad" />}
+                    label="Salad"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={maincourse}
+                        onChange={handleRecipeType}
+                        name="maincourse"
+                      />
+                    }
+                    label="Main Course"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox checked={beverages} onChange={handleRecipeType} name="beverages" />
+                    }
+                    label="Beverages"
+                  />
+                  <FormControlLabel
+                    control={
+                      <Checkbox checked={others} onChange={handleRecipeType} name="others" />
+                    }
+                    label="Others"
+                  />
+                </FormGroup>
+              </FormControl>
+              <Divider />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl component="fieldset" className={classes.filterForm}>
+                <FormLabel component="legend">Difficulty level</FormLabel>
+                <RadioGroup
+                  row
+                  aria-label="difficulty level"
+                  name="difficultyLevel"
+                  value={level}
+                  onChange={handleDifficultyLevel}
+                >
+                  <FormControlLabel value="easy" control={<Radio />} label="Easy" />
+                  <FormControlLabel value="moderate" control={<Radio />} label="Moderate" />
+                  <FormControlLabel value="hard" control={<Radio />} label="Hard" />
+                </RadioGroup>
+              </FormControl>
+              <Divider />
+            </Grid>
+            <Grid item xs={12}>
+              <FormControl component="fieldset" className={classes.filterForm}>
+                <FormLabel component="legend">Servings</FormLabel>
+                <RadioGroup
+                  row
+                  aria-label="Servings"
+                  name="servings"
+                  value={servings}
+                  onChange={handleServings}
+                >
+                  <FormControlLabel value="From 2 to 4" control={<Radio />} label="From 2 to 4" />
+                  <FormControlLabel value="From 5 to 8" control={<Radio />} label="From 5 to 8" />
+                  <FormControlLabel value="more than 8" control={<Radio />} label="More than 8" />
+                </RadioGroup>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={filteredRecipes}
+                className={classes.applyFilterBtn}
+              >
+                Apply
+              </Button>
+              <Button variant="contained" onClick={resetFilter}>
+                Reset
+              </Button>
+            </Grid>
+          </Grid>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>

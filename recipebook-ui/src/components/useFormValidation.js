@@ -15,7 +15,7 @@ function useFormValidation(initialState, validate) {
     recipeType: values.recipeType,
     title: values.title,
     description: values.description,
-    imageURL: values.imageURL,
+    imageURL: values.image,
     steps: instructions,
     ingredients: items,
     cookingTime: values.cookingTime,
@@ -61,7 +61,6 @@ function useFormValidation(initialState, validate) {
         .post('http://localhost:4000/addRecipe', formData)
         .then((res) => {
           console.log(res);
-          //setValues({});
           setRedirect(true);
         })
         .catch((err) => console.error(err));
@@ -74,7 +73,6 @@ function useFormValidation(initialState, validate) {
     handleFieldClick,
     values,
     errors,
-    //fileType,
     items,
     instructions,
     isSubmitting,

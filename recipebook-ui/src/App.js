@@ -13,8 +13,7 @@ function App() {
   const [recipeList, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const [searchedRecipesList, setSearchedRecipesList] = useState([]);
-  const [filetredRecipesList, filteredRecipesList] = useState([]);
+  const [updatedRecipesList, setUpdatedRecipesList] = useState([]);
   useEffect(() => {
     axios.get('http://localhost:4000').then((res) => {
       setData(res.data.recipes);
@@ -22,7 +21,7 @@ function App() {
     });
   }, []);
   useEffect(() => {
-    setSearchedRecipesList(
+    setUpdatedRecipesList(
       recipeList.filter((item) => {
         return (
           item.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -32,7 +31,10 @@ function App() {
     );
   }, [search, recipeList]);
   const handleFilteredRecipes = (recipes) => {
-    filteredRecipesList(recipes);
+    setUpdatedRecipesList(recipes);
+  };
+  const handleClearFilter = () => {
+    setUpdatedRecipesList(recipeList);
   };
   const handleSearch = (inputValue) => {
     setSearch(inputValue);
@@ -48,8 +50,12 @@ function App() {
             exact
             render={() => (
               <>
-                <FilterRecipes list={filetredRecipesList} filterData={handleFilteredRecipes} />
-                <RecipeList recipeList={searchedRecipesList} loadData={loading} />
+                <FilterRecipes
+                  list={recipeList}
+                  filterData={handleFilteredRecipes}
+                  clearData={handleClearFilter}
+                />
+                <RecipeList recipeList={updatedRecipesList} loadData={loading} />
               </>
             )}
           />
